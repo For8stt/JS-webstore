@@ -36,3 +36,15 @@ export function removeFromCart(productId){
 
     saveToStorage();
 }
+export function updateDeliverOption(productId, deliverOptionId){
+    let matchingItem;
+    cart.forEach((item)=>{
+        if(productId===item.productId){
+            matchingItem=item;
+        }
+    });
+
+    matchingItem.deliveryOptionId=deliverOptionId;
+    saveToStorage();
+
+}
