@@ -46,5 +46,4 @@ export function updateDeliverOption(productId, deliverOptionId){
 
     matchingItem.deliveryOptionId=deliverOptionId;
     saveToStorage();
-
 }
