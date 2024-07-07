@@ -1,4 +1,9 @@
-export let cart = JSON.parse(localStorage.getItem('cart'))||[];
+export let cart;
+loadFromStarage();
+
+export function loadFromStarage(){
+    cart = JSON.parse(localStorage.getItem('cart'))||[];
+}
 
 
 function saveToStorage(){
