@@ -1943,7 +1943,7 @@ getJasmineRequireObj().Env = function(j$) {
 
       if (!runable) {
         throw new Error(
-          "'expect' was used when there was no current spec, this could be because an asynchronous test timed out"
+          "'expect' was used when there was no current spec, this could be because an asynchronous test-simple timed out"
         );
       }
 
@@ -1955,7 +1955,7 @@ getJasmineRequireObj().Env = function(j$) {
 
       if (!runable) {
         throw new Error(
-          "'expectAsync' was used when there was no current spec, this could be because an asynchronous test timed out"
+          "'expectAsync' was used when there was no current spec, this could be because an asynchronous test-simple timed out"
         );
       }
 
@@ -2019,7 +2019,7 @@ getJasmineRequireObj().Env = function(j$) {
     this.fail = function(error) {
       if (!runner.currentRunable()) {
         throw new Error(
-          "'fail' was used when there was no current spec, this could be because an asynchronous test timed out"
+          "'fail' was used when there was no current spec, this could be because an asynchronous test-simple timed out"
         );
       }
 
@@ -5112,7 +5112,7 @@ getJasmineRequireObj().MatchersUtil = function(j$) {
         // For each value in the base set...
         for (const baseValue of baseValues) {
           let found = false;
-          // ... test that it is present in the other set
+          // ... test-simple that it is present in the other set
           for (let j = 0; !found && j < otherValues.length; j++) {
             const otherValue = otherValues[j];
             const prevStackSize = baseStack.length;
@@ -5352,7 +5352,7 @@ getJasmineRequireObj().MatchersUtil = function(j$) {
  * Determines whether a value matches this tester
  * @function
  * @name AsymmetricEqualityTester#asymmetricMatch
- * @param value {any} The value to test
+ * @param value {any} The value to test-simple
  * @param matchersUtil {MatchersUtil} utilities for testing equality, etc
  * @return {Boolean}
  */
@@ -6059,7 +6059,7 @@ getJasmineRequireObj().toEqual = function(j$) {
 
         result.pass = matchersUtil.equals(actual, expected, diffBuilder);
 
-        // TODO: only set error message if test fails
+        // TODO: only set error message if test-simple fails
         result.message = diffBuilder.getMessage();
 
         return result;
@@ -6483,7 +6483,7 @@ getJasmineRequireObj().toHaveClass = function(j$) {
    * @function
    * @name matchers#toHaveClass
    * @since 3.0.0
-   * @param {Object} expected - The class name to test for
+   * @param {Object} expected - The class name to test-simple for
    * @example
    * const el = document.createElement('div');
    * el.className = 'foo bar baz';
@@ -8066,7 +8066,7 @@ getJasmineRequireObj().interface = function(jasmine, env) {
      * Callback passed to parts of the Jasmine base interface.
      *
      * By default Jasmine assumes this function completes synchronously.
-     * If you have code that you need to test asynchronously, you can declare that you receive a `done` callback, return a Promise, or use the `async` keyword if it is supported in your environment.
+     * If you have code that you need to test-simple asynchronously, you can declare that you receive a `done` callback, return a Promise, or use the `async` keyword if it is supported in your environment.
      * @callback implementationCallback
      * @param {Function} [done] Used to specify to Jasmine that this callback is asynchronous and Jasmine should wait until it has been called before moving on.
      * @returns {} Optionally return a Promise instead of using `done` to cause Jasmine to wait for completion.
@@ -8119,10 +8119,10 @@ getJasmineRequireObj().interface = function(jasmine, env) {
     },
 
     /**
-     * Define a single spec. A spec should contain one or more {@link expect|expectations} that test the state of the code.
+     * Define a single spec. A spec should contain one or more {@link expect|expectations} that test-simple the state of the code.
      *
      * A spec whose expectations all succeed will be passing and a spec with any failures will fail.
-     * The name `it` is a pronoun for the test target, not an abbreviation of anything. It makes the
+     * The name `it` is a pronoun for the test-simple target, not an abbreviation of anything. It makes the
      * spec more readable by connecting the function name `it` and the argument `description` as a
      * complete sentence.
      * @name it
@@ -8130,7 +8130,7 @@ getJasmineRequireObj().interface = function(jasmine, env) {
      * @function
      * @global
      * @param {String} description Textual description of what this spec is checking
-     * @param {implementationCallback} [testFunction] Function that contains the code of your test. If not provided the test will be `pending`.
+     * @param {implementationCallback} [testFunction] Function that contains the code of your test-simple. If not provided the test-simple will be `pending`.
      * @param {Int} [timeout={@link jasmine.DEFAULT_TIMEOUT_INTERVAL}] Custom timeout for an async spec.
      * @see async
      */
@@ -8147,7 +8147,7 @@ getJasmineRequireObj().interface = function(jasmine, env) {
      * @function
      * @global
      * @param {String} description Textual description of what this spec is checking.
-     * @param {implementationCallback} [testFunction] Function that contains the code of your test. Will not be executed.
+     * @param {implementationCallback} [testFunction] Function that contains the code of your test-simple. Will not be executed.
      */
     xit: function() {
       return env.xit.apply(env, arguments);
@@ -8162,7 +8162,7 @@ getJasmineRequireObj().interface = function(jasmine, env) {
      * @function
      * @global
      * @param {String} description Textual description of what this spec is checking.
-     * @param {implementationCallback} testFunction Function that contains the code of your test.
+     * @param {implementationCallback} testFunction Function that contains the code of your test-simple.
      * @param {Int} [timeout={@link jasmine.DEFAULT_TIMEOUT_INTERVAL}] Custom timeout for an async spec.
      * @see async
      */
@@ -8260,7 +8260,7 @@ getJasmineRequireObj().interface = function(jasmine, env) {
      * @since 1.3.0
      * @function
      * @global
-     * @param {Object} actual - Actual computed value to test expectations against.
+     * @param {Object} actual - Actual computed value to test-simple expectations against.
      * @return {matchers}
      */
     expect: function(actual) {
@@ -8276,7 +8276,7 @@ getJasmineRequireObj().interface = function(jasmine, env) {
      * @since 3.3.0
      * @function
      * @global
-     * @param {Object} actual - Actual computed value to test expectations against.
+     * @param {Object} actual - Actual computed value to test-simple expectations against.
      * @return {async-matchers}
      * @example
      * await expectAsync(somePromise).toBeResolved();
@@ -8293,7 +8293,7 @@ getJasmineRequireObj().interface = function(jasmine, env) {
      * This is intended to allow Jasmine matchers to be used with tools like
      * testing-library's `waitFor`, which expect matcher failures to throw
      * exceptions and not trigger a spec failure if the exception is caught.
-     * It can also be used to integration-test custom matchers.
+     * It can also be used to integration-test-simple custom matchers.
      *
      * If the resulting expectation fails, a {@link ThrowUnlessFailure} will be
      * thrown. A failed expectation will not result in a spec failure unless the
@@ -8304,7 +8304,7 @@ getJasmineRequireObj().interface = function(jasmine, env) {
      * @function
      * @param actual
      * @global
-     * @param {Object} actual - Actual computed value to test expectations against.
+     * @param {Object} actual - Actual computed value to test-simple expectations against.
      * @return {matchers}
      */
     throwUnlessAsync: function(actual) {
@@ -8317,7 +8317,7 @@ getJasmineRequireObj().interface = function(jasmine, env) {
      * This is intended to allow Jasmine matchers to be used with tools like
      * testing-library's `waitFor`, which expect matcher failures to throw
      * exceptions and not trigger a spec failure if the exception is caught.
-     * It can also be used to integration-test custom matchers.
+     * It can also be used to integration-test-simple custom matchers.
      *
      * If the resulting expectation fails, a {@link ThrowUnlessFailure} will be
      * thrown. A failed expectation will not result in a spec failure unless the
@@ -8328,7 +8328,7 @@ getJasmineRequireObj().interface = function(jasmine, env) {
      * @function
      * @param actual
      * @global
-     * @param {Object} actual - Actual computed value to test expectations against.
+     * @param {Object} actual - Actual computed value to test-simple expectations against.
      * @return {matchers}
      */
     throwUnless: function(actual) {
