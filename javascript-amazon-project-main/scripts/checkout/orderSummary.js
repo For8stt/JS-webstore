@@ -6,10 +6,8 @@ import {
 
 import { getProduct} from '../../data/products.js';
 import {formatCurrency} from "../utils/money.js";
-import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
-import {deliveryOptions, getDeliverOptions} from '../../data/deliverOptions.js';
+import {deliveryOptions, getDeliverOptions,calculateDeliveryDate} from '../../data/deliverOptions.js';
 import {renderPaymentSummary} from "./paymentSummary.js";
-
 
 
 export function renderOrderSummary() {
@@ -24,9 +22,8 @@ export function renderOrderSummary() {
         const deliverOptionId = cartItem.deliveryOptionId;
         const deliveryOption= getDeliverOptions(deliverOptionId);
 
-        const today=dayjs();
-        const deliverDate=today.add(deliveryOption.deliveryDays, 'days');
-        const dateString=deliverDate.format('dddd, MMMM D');
+
+        const dateString=calculateDeliveryDate(deliveryOption);
 
 
         cartSummaryHTML += `
@@ -82,9 +79,8 @@ export function renderOrderSummary() {
         let html = '';
 
         deliveryOptions.forEach((deliveryOption) => {
-            const today = dayjs();
-            const deliverDate = today.add(deliveryOption.deliveryDays, 'days');
-            const dateString = deliverDate.format('dddd, MMMM D');
+
+            const dateString = calculateDeliveryDate(deliveryOption)
             const priceString = deliveryOption.priceCents === 0 ? 'Free' : `$${formatCurrency(deliveryOption.priceCents)}-`;
 
             const isCheked = deliveryOption.id === cartItem.deliveryOptionId;
@@ -145,9 +141,10 @@ export function renderOrderSummary() {
                 const newQuantity=Number(quantityInput.value);
                 quantityInput.value='';
 
-                if (newQuantity>=0 && newQuantity<1000) {
+                if (newQuantity>0 && newQuantity<1000) {
                     updateQuantity(productId, newQuantity);
                     conteiner.querySelector('.quantity-label').innerHTML = String(newQuantity);
+                    renderPaymentSummary();
                 }
             });
         });
