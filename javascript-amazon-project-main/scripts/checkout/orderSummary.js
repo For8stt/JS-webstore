@@ -1,4 +1,9 @@
-import {cart, removeFromCart, updateDeliverOption} from '../../data/cart.js';
+import {
+    cart,
+    removeFromCart,
+    updateDeliverOption,
+    updateQuantity} from '../../data/cart.js';
+
 import { getProduct} from '../../data/products.js';
 import {formatCurrency} from "../utils/money.js";
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
@@ -49,9 +54,12 @@ export function renderOrderSummary() {
                   <span>
                     Quantity: <span class="quantity-label">${cartItem.quantity}</span>
                   </span>
-                  <span class="update-quantity-link link-primary">
+                  <span class="update-quantity-link link-primary js-update-quantity-link" data-link-update="${matchingProduct.id}">
                     Update
                   </span>
+                  <input class="quantity-input js-quantity-input-${matchingProduct.id}"> 
+                  <span class="save-quantity-link link-primary js-save-quantity-link" data-link-save="${matchingProduct.id}">Save</span>
+                  
                   <span class="delete-quantity-link link-primary 
                   js-delete-quantity-link js-delete-link-${matchingProduct.id}" data-product-id="${matchingProduct.id}">
                     Delete
@@ -113,6 +121,34 @@ export function renderOrderSummary() {
                 const conteiner = document.querySelector(`.js-cart-item-container-${productId}`);
                 conteiner.remove();
                 renderPaymentSummary();
+                doCheckoutHTML();
+            });
+        });
+
+    document.querySelectorAll('.js-update-quantity-link')
+        .forEach((link)=>{
+            link.addEventListener('click',()=>{
+                const productId = link.dataset.linkUpdate;
+                const container=document.querySelector(`.js-cart-item-container-${productId}`);
+                container.classList.add('is-editing-quantity');
+            });
+    });
+
+    document.querySelectorAll('.save-quantity-link')
+        .forEach((link)=>{
+            link.addEventListener('click',()=>{
+                const productId=link.dataset.linkSave;
+                const conteiner=document.querySelector(`.js-cart-item-container-${productId}`);
+                conteiner.classList.remove('is-editing-quantity');
+
+                const quantityInput=document.querySelector(`.js-quantity-input-${productId}`);
+                const newQuantity=Number(quantityInput.value);
+                quantityInput.value='';
+
+                if (newQuantity>=0 && newQuantity<1000) {
+                    updateQuantity(productId, newQuantity);
+                    conteiner.querySelector('.quantity-label').innerHTML = String(newQuantity);
+                }
             });
         });
 
@@ -125,4 +161,17 @@ export function renderOrderSummary() {
                 renderPaymentSummary();
             });
         });
+
+
+     function doCheckoutHTML(){
+        let quantity=cart.length;
+
+         let checkoutHTML='';
+         const linkCheckoutHTML=document.querySelector('.js-checkout-header-middle-section');
+
+         checkoutHTML=`Checkout (<a class="return-to-home-link"
+            href="amazon.html">${quantity} items</a>)`;
+         linkCheckoutHTML.innerHTML=checkoutHTML;
+    }
+    doCheckoutHTML();
 }
