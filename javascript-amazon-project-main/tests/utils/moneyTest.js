@@ -12,4 +12,8 @@ describe('test-simple suite: formatCurrency', ()=>{
     it('rounds up to the nearest cents', ()=>{
         expect(formatCurrency(2000.5)).toEqual('20.01');
     });
+    it('if we have the negative number',()=>{
+       expect(formatCurrency(-1000)).toEqual('-10.00');
+    });
+
 });
