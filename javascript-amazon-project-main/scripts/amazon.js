@@ -1,12 +1,16 @@
 import {cart, addToCart} from '../data/cart.js'
-import {products} from '../data/products.js'
-import {formatCurrency} from "./utils/money.js";
+import {products,loadProduct} from '../data/products.js'
 
-updateCartQuantity();
-let productsHTML='';
 
-products.forEach((product)=> {
-    productsHTML += `
+loadProduct(renderProductsGrid);
+
+function renderProductsGrid() {
+
+    updateCartQuantity();
+    let productsHTML = '';
+
+    products.forEach((product) => {
+        productsHTML += `
        <div class="product-container">
           <div class="product-image-container">
             <img class="product-image"
@@ -59,39 +63,41 @@ products.forEach((product)=> {
           </button>
        </div>
     `;
-});
-document.querySelector('.js-products-grid').innerHTML=productsHTML;
+    });
+    document.querySelector('.js-products-grid').innerHTML = productsHTML;
 
-document.querySelectorAll('.js-add-to-cart-button').forEach((button)=>{
-    button.addEventListener('click',()=>{
-        added(button);
+    document.querySelectorAll('.js-add-to-cart-button').forEach((button) => {
+        button.addEventListener('click', () => {
+            added(button);
 
-        const productId=button.dataset.productId;
-        addToCart(productId);
-        updateCartQuantity();
-    })
-});
-function updateCartQuantity(){
-    let cartQuantity=0;
-
-    cart.forEach((item)=>{
-        cartQuantity+=item.quantity;
+            const productId = button.dataset.productId;
+            addToCart(productId);
+            updateCartQuantity();
+        })
     });
 
-    if (cartQuantity!==0) {
-        document.querySelector('.js-cart-quantity')
-            .innerHTML = cartQuantity;
+    function updateCartQuantity() {
+        let cartQuantity = 0;
+
+        cart.forEach((item) => {
+            cartQuantity += item.quantity;
+        });
+
+        if (cartQuantity !== 0) {
+            document.querySelector('.js-cart-quantity')
+                .innerHTML = cartQuantity;
+        }
+
     }
 
-}
 
-
-function added(button){
-    const pp=button.closest('.product-container');
-    const p= pp.querySelector('.added-to-cart');
-    p.classList.add('added-to-cartNew');
-    setTimeout(()=>{
-        p.classList.remove('added-to-cartNew');
-        }
-    ,1500)
+    function added(button) {
+        const pp = button.closest('.product-container');
+        const p = pp.querySelector('.added-to-cart');
+        p.classList.add('added-to-cartNew');
+        setTimeout(() => {
+                p.classList.remove('added-to-cartNew');
+            }
+            , 1500)
+    }
 }
