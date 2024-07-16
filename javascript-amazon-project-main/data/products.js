@@ -67,7 +67,7 @@ export function loadFromFetch() {
       return new Product(productDetails);
     });
     console.log('load products');
-  }).catch(error=> console.error('not fond http'));
+  }).catch(error=> console.error('not found http'));
 
   return promise;
 }
@@ -87,6 +87,11 @@ export function loadProduct(fun){
 
     fun();
   });
+
+  xhr.addEventListener('error',(error)=>{
+    console.log('have a error');
+  });
+
 
 
   xhr.open('GET','https://supersimplebackend.dev/products');
