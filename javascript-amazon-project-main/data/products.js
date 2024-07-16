@@ -67,7 +67,8 @@ export function loadFromFetch() {
       return new Product(productDetails);
     });
     console.log('load products');
-  });
+  }).catch(error=> console.error('not fond http'));
+
   return promise;
 }
 
