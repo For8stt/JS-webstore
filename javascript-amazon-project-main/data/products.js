@@ -84,6 +84,8 @@ export function loadFromFetch() {
     products = productsData.map((productDetails) => {
       if (productDetails.type === 'clothing') {
         return new Clothing(productDetails);
+      } else if (productDetails.type === 'appliance'||productKeywords(productDetails)) {
+        return new Appliance(productDetails,'images/appliance-instructions.png','images/appliance-warranty.png');
       }
       return new Product(productDetails);
     });
@@ -101,6 +103,8 @@ export function loadProduct(fun){
     products = JSON.parse(xhr.response).map((productDetails) => {
       if (productDetails.type === 'clothing') {
         return new Clothing(productDetails);
+      }else if (productDetails.type === 'appliance'||productKeywords(productDetails)) {
+        return new Appliance(productDetails,'images/appliance-instructions.png','images/appliance-warranty.png');
       }
       return new Product(productDetails);
     });
@@ -118,7 +122,15 @@ export function loadProduct(fun){
   xhr.open('GET','https://supersimplebackend.dev/products');
   xhr.send();
 }
-
+function productKeywords(productDetails) {
+  let found =false;
+  productDetails.keywords.forEach((keyword) => {
+    if (keyword==='appliances') {
+      found=true;
+    }
+  });
+  return found;
+}
 /*
 
 export const products = [
