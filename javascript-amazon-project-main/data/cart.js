@@ -1,3 +1,5 @@
+import {validDeliverOption} from "./deliverOptions.js";
+
 export let cart;
 loadFromStarage();
 
@@ -48,6 +50,12 @@ export function updateDeliverOption(productId, deliverOptionId){
             matchingItem=item;
         }
     });
+    if(!matchingItem){
+        return;
+    }
+    if (!validDeliverOption(deliverOptionId)){
+        return;
+    }
 
     matchingItem.deliveryOptionId=deliverOptionId;
     saveToStorage();
