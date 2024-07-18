@@ -1,5 +1,6 @@
 import {validDeliverOption} from "./deliverOptions.js";
 
+
 export let cart;
 loadFromStarage();
 
