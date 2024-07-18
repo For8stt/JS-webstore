@@ -99,6 +99,14 @@ function renderProductsGrid() {
             window.location.href=`amazon.html?search=${search}`;
         })
 
+    document.querySelector('.js-search-bar')
+        .addEventListener('keyword', (event)=>{
+           if (event.key='Enter'){
+               const search =document.querySelector('.js-search-bar').value;
+               window.location.href=`amazon.html?search=${search}`;
+           }
+        });
+
 
     function updateCartQuantity() {
         let cartQuantity = 0;
