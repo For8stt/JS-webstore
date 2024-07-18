@@ -7,8 +7,10 @@ async function loadPage(){
     try {
         // throw 'error1';
 
-        await loadFromFetch();
-        await loadCartFetch();
+        await Promise.all([
+            loadFromFetch(),
+            loadCartFetch()
+        ]);
 
         // await new Promise((resolve,reject)=>{
         //  // throw 'error2';
